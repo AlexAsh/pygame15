@@ -13,7 +13,6 @@ class GeneralController:
         return self.status
 
     def toggle_focus(self, event):
-        """Handling focus loose and gain"""
+        """Handle focus loose and gain"""
         self.status = "toggle_focus " + str(event.gain) + " " + str(event.state)
-
         return self.status
