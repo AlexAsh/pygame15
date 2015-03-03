@@ -8,11 +8,12 @@ class Router:
 
     def __init__(self):
         self.mapping = {
+            pygame.ACTIVEEVENT:     ("GeneralController", "toggle_focus"),
             pygame.QUIT:            ("GeneralController", "quit"),
+
             pygame.MOUSEBUTTONDOWN: ("MouseController",   "down"),
             pygame.MOUSEBUTTONUP:   ("MouseController",   "up"),
-            pygame.MOUSEMOTION:     ("MouseController",   "move"),
-            pygame.ACTIVEEVENT:     ("GeneralController", "toggle_focus")
+            pygame.MOUSEMOTION:     ("MouseController",   "move")
         }
 
     def route(self, event):
