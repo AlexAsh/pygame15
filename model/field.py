@@ -12,6 +12,7 @@ class Field:
         return self.size
 
     def move_ball(self, ball):
+        """Move ball with it's speed considering borders"""
         ball.position[0] += ball.speed[0]
         ball.position[1] += ball.speed[1]
 

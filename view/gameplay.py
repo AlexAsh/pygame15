@@ -14,7 +14,8 @@ class GameplayView:
         self.ball["image"] = pygame.transform.scale(
             pygame.image.load("ball.gif"),
             (int(self.ball["model"].radius) * 2, int(self.ball["model"].radius) * 2))
-        self.ball["rect"] = self.ball["image"].get_rect(center=map(int, self.ball["model"].position))
+        self.ball["rect"] = self.ball["image"].get_rect(
+            center=map(int, self.ball["model"].position))
 
     def update(self):
         """Update view content"""

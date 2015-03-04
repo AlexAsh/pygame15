@@ -13,9 +13,9 @@ class Router:
             pygame.USEREVENT:   ("GeneralController", "tick"),
             pygame.QUIT:        ("GeneralController", "quit"),
 
-            pygame.MOUSEBUTTONDOWN: ("MouseController",   "down"),
-            pygame.MOUSEBUTTONUP:   ("MouseController",   "up"),
-            pygame.MOUSEMOTION:     ("MouseController",   "move")
+            pygame.MOUSEBUTTONDOWN: ("MouseController", "press"),
+            pygame.MOUSEBUTTONUP:   ("MouseController", "release"),
+            pygame.MOUSEMOTION:     ("MouseController", "move")
         }
 
     def route(self, event):

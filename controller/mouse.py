@@ -7,17 +7,24 @@ class MouseController:
     def __init__(self):
         self.status = ""
 
-    def up(self, event):
+    def release(self, event):
         """Handle mouse button release"""
-        self.status = "mouse button release " + str(event.pos) + " " + str(event.button)
+        self.status = ("mouse button release " +
+                       str(event.pos) + " " +
+                       str(event.button))
         return self.status
 
-    def down(self, event):
+    def press(self, event):
         """Handle mouse button press"""
-        self.status = "mouse button press " + str(event.pos) + " " + str(event.button)
+        self.status = ("mouse button press " +
+                       str(event.pos) + " " +
+                       str(event.button))
         return self.status
 
     def move(self, event):
         """Handle mouse move"""
-        self.status = "mouse move " + str(event.pos) + " " + str(event.rel) + " " + str(event.buttons)
+        self.status = ("mouse move " +
+                       str(event.pos) + " " +
+                       str(event.rel) + " " +
+                       str(event.buttons))
         return self.status

@@ -12,7 +12,9 @@ class GeneralController:
 
     def quit(self, event):
         """Handle application quit"""
+        self.status = "quit " + str(event.type)
         self.app.finish()
+        return self.status
 
     def toggle_focus(self, event):
         """Handle focus loose and gain"""
