@@ -95,4 +95,3 @@ class Application:
         """Release pygame resources"""
         pygame.time.set_timer(pygame.USEREVENT, 0)
         pygame.quit()
-

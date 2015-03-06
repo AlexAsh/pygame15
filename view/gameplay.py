@@ -7,7 +7,7 @@ class GameplayView:
 
     def __init__(self, color, models):
         self.color = color
-        self.size = map(int, models["Field"].get_size())
+        self.size = map(int, models["Field"].size)
         self.screen = pygame.display.set_mode(self.size)
         self.ball = dict(image=None, rect=None, model=None)
         self.ball["model"] = models["Ball"]

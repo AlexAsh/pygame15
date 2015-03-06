@@ -7,10 +7,6 @@ class Field:
     def __init__(self, size):
         self.size = size
 
-    def get_size(self):
-        """Get field size"""
-        return self.size
-
     def move_ball(self, ball):
         """Move ball with it's speed considering borders"""
         ball.position[0] += ball.speed[0]
