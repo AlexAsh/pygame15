@@ -1,4 +1,6 @@
 """Game field logic"""
+from random import random
+
 from model.ball import Ball
 
 
@@ -7,13 +9,22 @@ class Field:
 
     def __init__(self, size):
         self.size = size
-        self.ball = None
+        self.balls = None
 
-    def init_ball(self, radius, position, speed):
-        """Initialize ball"""
-        self.ball = Ball(radius)
-        self.ball.position = position
-        self.ball.speed = speed
+    def generate_balls(self, number, radius_range, speed_range):
+        """Generate balls"""
+        width, height = self.size
+        rmin, rmax = radius_range
+        vmin, vmax = speed_range
+
+        self.balls = [None] * number
+        for i in range(0, number):
+            radius = random() * (rmax - rmin) + rmin
+            self.balls[i] = Ball(radius)
+            self.balls[i].position = [2 * radius + random() * (width - 4 * radius),
+                                      2 * radius + random() * (height - 4 * radius)]
+            self.balls[i].speed = [vmin + random() * (vmax - vmin),
+                                   vmin + random() * (vmax - vmin)]
 
     def move_ball(self, ball):
         """Move ball with it's speed considering borders"""
@@ -30,4 +41,5 @@ class Field:
 
     def motion(self):
         """Move object inside field"""
-        self.move_ball(self.ball)
+        for ball in self.balls:
+            self.move_ball(ball)
