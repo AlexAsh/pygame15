@@ -24,6 +24,6 @@ class GeneralController:
     def tick(self, event):
         """Handle clock tick"""
         self.status = "tick " + str(event.code)
-        self.models["Ball"].move()
+        self.models["Field"].motion()
         self.views["GameplayView"].update()
         return self.status

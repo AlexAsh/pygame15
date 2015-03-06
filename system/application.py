@@ -4,7 +4,6 @@ import pygame
 from system.settings import settings
 
 from model.field import Field
-from model.ball import Ball
 from model import models
 
 from view.gameplay import GameplayView
@@ -38,14 +37,13 @@ class Application:
     def _setup_models(self):
         """Prepare Field and Ball models by settings"""
         size = settings["models"]["size"]
-        speed = settings["models"]["speed"]
+        position = map(2.0.__rdiv__, size)
+        speed = list(settings["models"]["speed"])
         radius = settings["models"]["radius"]
 
         self.models = models
         self.models["Field"] = Field(size)
-        self.models["Ball"] = Ball(radius, models["Field"])
-        self.models["Ball"].position = map(2.0.__rdiv__, models["Field"].size)
-        self.models["Ball"].speed = list(speed)
+        self.models["Field"].init_ball(radius, position, speed)
 
     def _setup_views(self):
         """Prepare Gameplay view by color and models"""

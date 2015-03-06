@@ -2,7 +2,7 @@
 
 settings = {
     "models": {
-        "size": (640, 480),
+        "size": (640.0, 480.0),
         "speed": (10.0, 10.0),
         "radius": 50.0
     },
