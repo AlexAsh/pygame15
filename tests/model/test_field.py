@@ -95,16 +95,22 @@ class TestField(unittest.TestCase):
         self.field.balls[1].contains = True
 
         self.field.freeze([0.0, 0.0])
-        self.assertTrue(self.field.balls[0].moving)
-        self.assertFalse(self.field.balls[1].moving)
+        self.assertTrue(self.field.frozen is self.field.balls[1])
 
     def test_release(self):
         """Test release ball"""
-        self.field.balls = [self.BallMock(10.0), self.BallMock(10.0)]
-        self.field.balls[0].moving = False
-        self.field.balls[1].moving = False
-        self.field.balls[1].contains = True
+        self.field.frozen = self.BallMock(10.0)
 
-        self.field.release([0.0, 0.0])
-        self.assertFalse(self.field.balls[0].moving)
-        self.assertTrue(self.field.balls[1].moving)
+        self.field.release()
+        self.assertTrue(self.field.frozen is None)
+
+    def test_manual_move(self):
+        """Test ball manual move"""
+        ball = Ball(10.0)
+        ball.position = [100.0, 100.0]
+        ball.speed = [10.0, 10.0]
+        self.field.frozen = ball
+
+        self.field.manual_move([120.0, 150.0], [5.0, 15.0])
+        self.assertEqual([120.0, 150.0], self.field.frozen.position)
+        self.assertEqual([5.0, 15.0], self.field.frozen.speed)

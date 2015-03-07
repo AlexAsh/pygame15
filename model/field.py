@@ -10,6 +10,7 @@ class Field:
     def __init__(self, size):
         self.size = size
         self.balls = None
+        self.frozen = None
 
     def generate_balls(self, number, radius_range, speed_range):
         """Generate balls"""
@@ -42,17 +43,21 @@ class Field:
     def motion(self):
         """Move object inside field"""
         for ball in self.balls:
-            if ball.moving:
+            if ball is not self.frozen:
                 self.move_ball(ball)
 
     def freeze(self, coords):
         """Freeze ball by coordinates if any"""
         for ball in self.balls:
             if ball.contains_point(coords):
-                ball.moving = False
+                self.frozen = ball
 
-    def release(self, coords):
+    def release(self):
         """Release frozen ball by coordinates if any"""
-        for ball in self.balls:
-            if ball.contains_point(coords):
-                ball.moving = True
+        self.frozen = None
+
+    def manual_move(self, pos, speed):
+        """Move frozen ball manually"""
+        if self.frozen:
+            self.frozen.position = pos
+            self.frozen.speed = speed

@@ -16,7 +16,7 @@ class MouseController:
                        str(event.pos) + " " +
                        str(event.button))
         if event.button == self.MOUSE_BUTTON_LEFT:
-            self.models["Field"].release(map(float, event.pos))
+            self.models["Field"].release()
         return self.status
 
     def press(self, event):
@@ -34,4 +34,7 @@ class MouseController:
                        str(event.pos) + " " +
                        str(event.rel) + " " +
                        str(event.buttons))
+        if event.buttons[0]:
+            self.models["Field"].manual_move(map(float, event.pos),
+                                             map(float, event.rel))
         return self.status
