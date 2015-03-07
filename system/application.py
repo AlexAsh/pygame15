@@ -56,7 +56,7 @@ class Application:
         """Prepare General and Mouse controllers by models, views and application"""
         self.controllers = controllers
         self.controllers["GeneralController"] = GeneralController(self.models, self.views, self)
-        self.controllers["MouseController"] = MouseController()
+        self.controllers["MouseController"] = MouseController(self.models)
 
     def _setup_router(self):
         """Prepare router by controllers"""

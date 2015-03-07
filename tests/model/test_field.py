@@ -8,6 +8,7 @@ from model.ball import Ball
 # pylint: disable=too-many-public-methods
 class TestField(unittest.TestCase):
     """Field unit test"""
+
     def setUp(self):
         """Prepare data for test"""
         self.field = Field((640.0, 480))
@@ -74,9 +75,36 @@ class TestField(unittest.TestCase):
         """Test motion with Field mock"""
         balls_number = 7
         field = self.FieldMock(self.field.size)
-        field.balls = [None] * balls_number
+        field.balls = [Ball(float(i)) for i in range(0, balls_number)]
 
         field.motion()
 
         self.assertEqual(balls_number, field.moved)
 
+    class BallMock(Ball):
+        """Mock Ball class for testing freeze/release Field methods"""
+        contains = False
+
+        def contains_point(self, coords):
+            """Mock Ball contains method for testing freeze/release Field methods"""
+            return self.contains
+
+    def test_freeze(self):
+        """Test freeze ball"""
+        self.field.balls = [self.BallMock(10.0), self.BallMock(10.0)]
+        self.field.balls[1].contains = True
+
+        self.field.freeze([0.0, 0.0])
+        self.assertTrue(self.field.balls[0].moving)
+        self.assertFalse(self.field.balls[1].moving)
+
+    def test_release(self):
+        """Test release ball"""
+        self.field.balls = [self.BallMock(10.0), self.BallMock(10.0)]
+        self.field.balls[0].moving = False
+        self.field.balls[1].moving = False
+        self.field.balls[1].contains = True
+
+        self.field.release([0.0, 0.0])
+        self.assertFalse(self.field.balls[0].moving)
+        self.assertTrue(self.field.balls[1].moving)

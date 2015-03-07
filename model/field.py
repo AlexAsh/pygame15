@@ -42,4 +42,17 @@ class Field:
     def motion(self):
         """Move object inside field"""
         for ball in self.balls:
-            self.move_ball(ball)
+            if ball.moving:
+                self.move_ball(ball)
+
+    def freeze(self, coords):
+        """Freeze ball by coordinates if any"""
+        for ball in self.balls:
+            if ball.contains_point(coords):
+                ball.moving = False
+
+    def release(self, coords):
+        """Release frozen ball by coordinates if any"""
+        for ball in self.balls:
+            if ball.contains_point(coords):
+                ball.moving = True
