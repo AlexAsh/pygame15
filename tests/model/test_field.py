@@ -11,7 +11,7 @@ class TestField(unittest.TestCase):
 
     def setUp(self):
         """Prepare data for test"""
-        self.field = Field((640.0, 480))
+        self.field = Field((640.0, 480), 1.0)
         self.ball1 = None
         self.ball2 = None
 
@@ -36,9 +36,10 @@ class TestField(unittest.TestCase):
         self.field.move_ball(self.ball1)
         self.field.move_ball(self.ball2)
 
-        self.assertEqual([320.0, 240.0], self.ball1.position)
-        self.assertEqual([630.0, 470.0], self.ball2.position)
-        self.assertEqual([-10.0, -10.0], self.ball2.speed)
+        self.assertEqual([320.0, 240.5], self.ball1.position)
+        self.assertEqual([0.0, 1.0], self.ball1.speed)
+        self.assertEqual([630.0, 470.5], self.ball2.position)
+        self.assertEqual([-10.0, -11.0], self.ball2.speed)
 
         self._tear_down_move_ball()
 
@@ -74,7 +75,7 @@ class TestField(unittest.TestCase):
     def test_motion(self):
         """Test motion with Field mock"""
         balls_number = 7
-        field = self.FieldMock(self.field.size)
+        field = self.FieldMock(self.field.size, self.field.gravitation)
         field.balls = [Ball(float(i)) for i in range(0, balls_number)]
 
         field.motion()

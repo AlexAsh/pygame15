@@ -7,8 +7,9 @@ from model.ball import Ball
 class Field:
     """Game field logic"""
 
-    def __init__(self, size):
+    def __init__(self, size, gravitation):
         self.size = size
+        self.gravitation = gravitation
         self.balls = None
         self.frozen = None
 
@@ -30,7 +31,8 @@ class Field:
     def move_ball(self, ball):
         """Move ball with it's speed considering borders"""
         ball.position[0] += ball.speed[0]
-        ball.position[1] += ball.speed[1]
+        ball.position[1] += ball.speed[1] + self.gravitation / 2.0
+        ball.speed[1] += self.gravitation
 
         if (ball.position[0] + ball.radius >= self.size[0] or
                 ball.position[0] - ball.radius <= 0.0):
