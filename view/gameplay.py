@@ -28,5 +28,8 @@ class GameplayView:
         self.screen.fill(self.color)
         for i in range(0, len(self.balls)):
             self.balls[i]["rect"].center = map(int, self.balls[i]["model"].position)
-            self.screen.blit(self.balls[i]["image"], self.balls[i]["rect"])
+            self.screen.blit(
+                pygame.transform.rotate(self.balls[i]["image"],
+                                        int(self.balls[i]["model"].rotated)),
+                self.balls[i]["rect"])
         pygame.display.flip()

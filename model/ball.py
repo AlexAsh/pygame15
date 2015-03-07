@@ -8,6 +8,8 @@ class Ball:
         self.radius = radius
         self.position = [0.0, 0.0]
         self.speed = [0.0, 0.0]
+        self.rotated = 0.0
+        self.rotation_speed = 0.0
 
     def contains_point(self, coords):
         """Detect if ball contains point with coordinates given"""

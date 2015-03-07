@@ -13,11 +13,12 @@ class Field:
         self.balls = None
         self.frozen = None
 
-    def generate_balls(self, number, radius_range, speed_range):
+    def generate_balls(self, number, radius_range, speed_range, rot_range):
         """Generate balls"""
         width, height = self.size
         rmin, rmax = radius_range
         vmin, vmax = speed_range
+        rotmin, rotmax = rot_range
 
         self.balls = [None] * number
         for i in range(0, number):
@@ -27,12 +28,14 @@ class Field:
                                       2 * radius + random() * (height - 4 * radius)]
             self.balls[i].speed = [vmin + random() * (vmax - vmin),
                                    vmin + random() * (vmax - vmin)]
+            self.balls[i].rotation_speed = rotmin + random() * (rotmax - rotmin)
 
     def move_ball(self, ball):
         """Move ball with it's speed considering borders"""
         ball.position[0] += ball.speed[0]
         ball.position[1] += ball.speed[1] + self.gravitation / 2.0
         ball.speed[1] += self.gravitation
+        ball.rotated = (ball.rotated + ball.rotation_speed) % 360.0
 
         if (ball.position[0] + ball.radius >= self.size[0] or
                 ball.position[0] - ball.radius <= 0.0):

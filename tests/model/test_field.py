@@ -48,8 +48,9 @@ class TestField(unittest.TestCase):
         number = 3
         radius_range = 20.0, 40.0
         speed_range = 10.0, 30.0
+        rot_range = 2.0, 10.0
 
-        self.field.generate_balls(number, radius_range, speed_range)
+        self.field.generate_balls(number, radius_range, speed_range, rot_range)
         balls = self.field.balls
         field_size = self.field.size
 
@@ -59,6 +60,7 @@ class TestField(unittest.TestCase):
                 radius_range[0] <= balls[i].radius <= radius_range[1])
             self.assertTrue(speed_range[0] <= balls[i].speed[0] <= speed_range[1])
             self.assertTrue(speed_range[0] <= balls[i].speed[1] <= speed_range[1])
+            self.assertTrue(rot_range[0] <= balls[i].rotation_speed <= rot_range[1])
             self.assertGreater(balls[i].position[0], balls[i].radius)
             self.assertGreater(balls[i].position[1], balls[i].radius)
             self.assertLess(balls[i].position[0], field_size[0] - balls[i].radius)

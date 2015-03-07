@@ -41,10 +41,11 @@ class Application:
         balls_number = settings["models"]["balls_number"]
         radius_range = settings["models"]["radius_range"]
         speed_range = settings["models"]["speed_range"]
+        rot_range = settings["models"]["rotation_speed_range"]
 
         self.models = models
         self.models["Field"] = Field(field_size, gravitation)
-        self.models["Field"].generate_balls(balls_number, radius_range, speed_range)
+        self.models["Field"].generate_balls(balls_number, radius_range, speed_range, rot_range)
 
     def _setup_views(self):
         """Prepare Gameplay view by color and models"""
