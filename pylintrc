@@ -12,7 +12,7 @@ profile=no
 
 # Add files or directories to the blacklist. They should be base names, not
 # paths.
-ignore=CVS,.git,.idea
+ignore=CVS,.git,.idea,settings_sample.py
 
 # Pickle collected data for later comparisons.
 persistent=yes
@@ -33,7 +33,7 @@ load-plugins=
 # can either give multiple identifier separated by comma (,) or put this option
 # multiple time (only on the command line, not in the configuration file where
 # it should appear only once).
-#disable=
+disable=no-self-use
 
 
 [REPORTS]

@@ -4,14 +4,19 @@
 class MouseController:
     """Handling mouse application actions: press, release and move"""
 
-    def __init__(self):
+    MOUSE_BUTTON_LEFT = 1
+
+    def __init__(self, models):
         self.status = ""
+        self.models = models
 
     def release(self, event):
         """Handle mouse button release"""
         self.status = ("mouse button release " +
                        str(event.pos) + " " +
                        str(event.button))
+        if event.button == self.MOUSE_BUTTON_LEFT:
+            self.models["Field"].release()
         return self.status
 
     def press(self, event):
@@ -19,6 +24,8 @@ class MouseController:
         self.status = ("mouse button press " +
                        str(event.pos) + " " +
                        str(event.button))
+        if event.button == self.MOUSE_BUTTON_LEFT:
+            self.models["Field"].freeze(map(float, event.pos))
         return self.status
 
     def move(self, event):
@@ -27,4 +34,7 @@ class MouseController:
                        str(event.pos) + " " +
                        str(event.rel) + " " +
                        str(event.buttons))
+        if event.buttons[0]:
+            self.models["Field"].manual_move(map(float, event.pos),
+                                             map(float, event.rel))
         return self.status

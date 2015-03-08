@@ -55,3 +55,6 @@ target/
 
 #PyCharm files
 .idea
+
+#Project settings
+system/settings.py

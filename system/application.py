@@ -1,10 +1,7 @@
 """Setup application"""
 import pygame
 
-from system.settings import settings
-
 from model.field import Field
-from model.ball import Ball
 from model import models
 
 from view.gameplay import GameplayView
@@ -20,9 +17,10 @@ from system.router import Router
 class Application:
     """Setup application"""
 
-    def __init__(self):
+    def __init__(self, settings):
         pygame.init()
 
+        self.settings = settings
         self.models = None
         self.views = None
         self.controllers = None
@@ -37,19 +35,20 @@ class Application:
 
     def _setup_models(self):
         """Prepare Field and Ball models by settings"""
-        size = settings["models"]["size"]
-        speed = settings["models"]["speed"]
-        radius = settings["models"]["radius"]
+        field_size = self.settings["models"]["field_size"]
+        gravitation = self.settings["models"]["gravitation"]
+        balls_number = self.settings["models"]["balls_number"]
+        radius_range = self.settings["models"]["radius_range"]
+        speed_range = self.settings["models"]["speed_range"]
+        rot_range = self.settings["models"]["rotation_speed_range"]
 
         self.models = models
-        self.models["Field"] = Field(size)
-        self.models["Ball"] = Ball(radius, models["Field"])
-        self.models["Ball"].position = map(2.0.__rdiv__, models["Field"].size)
-        self.models["Ball"].speed = list(speed)
+        self.models["Field"] = Field(field_size, gravitation)
+        self.models["Field"].generate_balls(balls_number, radius_range, speed_range, rot_range)
 
     def _setup_views(self):
         """Prepare Gameplay view by color and models"""
-        color = settings["views"]["color"]
+        color = self.settings["views"]["color"]
 
         self.views = views
         self.views["GameplayView"] = GameplayView(color, self.models)
@@ -58,7 +57,7 @@ class Application:
         """Prepare General and Mouse controllers by models, views and application"""
         self.controllers = controllers
         self.controllers["GeneralController"] = GeneralController(self.models, self.views, self)
-        self.controllers["MouseController"] = MouseController()
+        self.controllers["MouseController"] = MouseController(self.models)
 
     def _setup_router(self):
         """Prepare router by controllers"""
@@ -68,8 +67,8 @@ class Application:
         """Setup application cycle tools"""
         self.app = {
             "play": False,
-            "tick_time": settings["cycle"]["tick"],
-            "frame_rate": 1000 / settings["cycle"]["tick"],
+            "tick_time": self.settings["cycle"]["tick"],
+            "frame_rate": 1000 / self.settings["cycle"]["tick"],
             "clock": pygame.time.Clock()
 
         }
