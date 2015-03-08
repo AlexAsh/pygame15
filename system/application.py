@@ -1,8 +1,6 @@
 """Setup application"""
 import pygame
 
-from system.settings import settings
-
 from model.field import Field
 from model import models
 
@@ -19,9 +17,10 @@ from system.router import Router
 class Application:
     """Setup application"""
 
-    def __init__(self):
+    def __init__(self, settings):
         pygame.init()
 
+        self.settings = settings
         self.models = None
         self.views = None
         self.controllers = None
@@ -36,12 +35,12 @@ class Application:
 
     def _setup_models(self):
         """Prepare Field and Ball models by settings"""
-        field_size = settings["models"]["field_size"]
-        gravitation = settings["models"]["gravitation"]
-        balls_number = settings["models"]["balls_number"]
-        radius_range = settings["models"]["radius_range"]
-        speed_range = settings["models"]["speed_range"]
-        rot_range = settings["models"]["rotation_speed_range"]
+        field_size = self.settings["models"]["field_size"]
+        gravitation = self.settings["models"]["gravitation"]
+        balls_number = self.settings["models"]["balls_number"]
+        radius_range = self.settings["models"]["radius_range"]
+        speed_range = self.settings["models"]["speed_range"]
+        rot_range = self.settings["models"]["rotation_speed_range"]
 
         self.models = models
         self.models["Field"] = Field(field_size, gravitation)
@@ -49,7 +48,7 @@ class Application:
 
     def _setup_views(self):
         """Prepare Gameplay view by color and models"""
-        color = settings["views"]["color"]
+        color = self.settings["views"]["color"]
 
         self.views = views
         self.views["GameplayView"] = GameplayView(color, self.models)
@@ -68,8 +67,8 @@ class Application:
         """Setup application cycle tools"""
         self.app = {
             "play": False,
-            "tick_time": settings["cycle"]["tick"],
-            "frame_rate": 1000 / settings["cycle"]["tick"],
+            "tick_time": self.settings["cycle"]["tick"],
+            "frame_rate": 1000 / self.settings["cycle"]["tick"],
             "clock": pygame.time.Clock()
 
         }
