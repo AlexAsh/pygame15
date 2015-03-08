@@ -1,5 +1,7 @@
 """Ball logic"""
 
+import math
+
 
 class Ball:
     """Ball logic"""
@@ -15,3 +17,7 @@ class Ball:
         """Detect if ball contains point with coordinates given"""
         return ((self.position[0] - coords[0]) ** 2 +
                 (self.position[1] - coords[1]) ** 2 <= self.radius ** 2)
+
+    def get_weight(self):
+        """Calculate weight"""
+        return math.pi * self.radius ** 2

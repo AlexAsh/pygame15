@@ -2,7 +2,7 @@
 
 settings = {
     "models": {
-        "field_size": (640.0, 480.0),
+        "field_size": (800.0, 600.0),
         "gravitation": 1.0,
         "balls_number": 5,
         "radius_range": (25.0, 75.0),
